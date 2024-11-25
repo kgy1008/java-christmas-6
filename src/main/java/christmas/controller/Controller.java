@@ -3,6 +3,7 @@ package christmas.controller;
 import christmas.domain.Date;
 import christmas.domain.order.Orders;
 import christmas.domain.order.utils.OrderParser;
+import christmas.dto.OrderMenus;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.util.function.Supplier;
@@ -10,20 +11,26 @@ import java.util.function.Supplier;
 public class Controller {
 
     public void run() {
-        inputOrder();
+        Date date = inputDate();
+        Orders orders = inputOrder();
+        displayOrder(date, orders);
+    }
+
+    private Date inputDate() {
+        OutputView.printWelcomeMessage();
+        return retryTemplate(InputView::inputVisitDate);
     }
 
     private Orders inputOrder() {
-        OutputView.printWelcomeMessage();
-        Date date = retryTemplate(InputView::inputVisitDate);
         return retryTemplate(() -> {
             String orderedMenus = InputView.inputMenu();
-            return parseOrder(orderedMenus);
+            return OrderParser.parse(orderedMenus);
         });
     }
 
-    private Orders parseOrder(final String orderMenus) {
-        return OrderParser.parse(orderMenus);
+    private void displayOrder(final Date date, final Orders orders) {
+        OutputView.printPreviewEventMessage(date.getDate());
+        OutputView.printOrderedMenu(OrderMenus.of(orders.getOrders()));
     }
 
     private <T> T retryTemplate(final Supplier<T> action) {
