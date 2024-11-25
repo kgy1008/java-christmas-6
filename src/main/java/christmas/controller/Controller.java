@@ -27,6 +27,7 @@ public class Controller {
         Orders orders = inputOrder();
         displayOrder(date, orders);
         calculateAndDisplay(orders, date);
+        generateBadge();
     }
 
     private Date inputDate() {
@@ -52,6 +53,7 @@ public class Controller {
         Gift gift = displayGift(totalPrice);
         DiscountPromotions discountPromotions = calculateDiscountAmount(orders, date, gift);
         displayBenefit(discountPromotions);
+        OutputView.printPayment(totalPrice - discountPromotions.getTotalDiscountAmount());
     }
 
     private int calculateTotalPrice(final Orders orders) {
@@ -70,24 +72,16 @@ public class Controller {
 
     private void displayBenefit(final DiscountPromotions discountPromotions) {
         OutputView.printPromotion(discountPromotions);
-        OutputView.printTotalDiscountAmount(discountPromotions.getTotalDiscountAmount());
+        OutputView.printTotalDiscountAmount(discountPromotions.getTotalBenefitAmount());
+    }
+
+    private void generateBadge() {
     }
 
     private <T> T retryTemplate(final Supplier<T> action) {
         while (true) {
             try {
                 return action.get();
-            } catch (IllegalArgumentException e) {
-                OutputView.printErrorMessage(e.getMessage());
-            }
-        }
-    }
-
-    private void retryTemplate(final Runnable action) {
-        while (true) {
-            try {
-                action.run();
-                break;
             } catch (IllegalArgumentException e) {
                 OutputView.printErrorMessage(e.getMessage());
             }
