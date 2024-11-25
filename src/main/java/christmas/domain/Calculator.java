@@ -62,7 +62,7 @@ public class Calculator {
                     return null;
                 })
                 .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private void addGiftPromotionIfApplicable(Set<DiscountPromotion> discountPromotions, final Gift gift) {
