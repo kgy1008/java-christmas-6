@@ -27,7 +27,9 @@ public class Controller {
         Date date = inputDate();
         Orders orders = inputOrder();
         displayOrder(date, orders);
-        int benefitAmount = calculateAndDisplay(orders, date);
+        int totalPrice = calculateTotalPrice(orders);
+        OutputView.printTotalPrice(totalPrice);
+        int benefitAmount = calculateAndDisplay(orders, date, totalPrice);
         generateBadge(benefitAmount);
     }
 
@@ -48,11 +50,9 @@ public class Controller {
         OutputView.printOrderedMenu(OrderMenus.of(orders.getOrders()));
     }
 
-    private int calculateAndDisplay(final Orders orders, final Date date) {
-        int totalPrice = calculateTotalPrice(orders);
-        OutputView.printTotalPrice(totalPrice);
+    private int calculateAndDisplay(final Orders orders, final Date date, final int totalPrice) {
         Gift gift = displayGift(totalPrice);
-        DiscountPromotions discountPromotions = calculateDiscountAmount(orders, date, gift);
+        DiscountPromotions discountPromotions = calculateDiscountAmount(orders, date, gift, totalPrice);
         displayBenefit(discountPromotions);
         OutputView.printPayment(totalPrice - discountPromotions.getTotalDiscountAmount());
         return discountPromotions.getTotalBenefitAmount();
@@ -68,8 +68,8 @@ public class Controller {
         return gift;
     }
 
-    private DiscountPromotions calculateDiscountAmount(final Orders orders, final Date date, final Gift gift) {
-        return calculator.calculateDiscountAmount(orders, date, gift);
+    private DiscountPromotions calculateDiscountAmount(final Orders orders, final Date date, final Gift gift, final int totalPrice) {
+        return calculator.calculateDiscountAmount(orders, date, gift, totalPrice);
     }
 
     private void displayBenefit(final DiscountPromotions discountPromotions) {
