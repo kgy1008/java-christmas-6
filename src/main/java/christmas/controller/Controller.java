@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.domain.Badge;
 import christmas.domain.Calculator;
 import christmas.domain.Date;
 import christmas.domain.Gift;
@@ -26,8 +27,8 @@ public class Controller {
         Date date = inputDate();
         Orders orders = inputOrder();
         displayOrder(date, orders);
-        calculateAndDisplay(orders, date);
-        generateBadge();
+        int benefitAmount = calculateAndDisplay(orders, date);
+        generateBadge(benefitAmount);
     }
 
     private Date inputDate() {
@@ -47,13 +48,14 @@ public class Controller {
         OutputView.printOrderedMenu(OrderMenus.of(orders.getOrders()));
     }
 
-    private void calculateAndDisplay(final Orders orders, final Date date) {
+    private int calculateAndDisplay(final Orders orders, final Date date) {
         int totalPrice = calculateTotalPrice(orders);
         OutputView.printTotalPrice(totalPrice);
         Gift gift = displayGift(totalPrice);
         DiscountPromotions discountPromotions = calculateDiscountAmount(orders, date, gift);
         displayBenefit(discountPromotions);
         OutputView.printPayment(totalPrice - discountPromotions.getTotalDiscountAmount());
+        return discountPromotions.getTotalBenefitAmount();
     }
 
     private int calculateTotalPrice(final Orders orders) {
@@ -75,7 +77,9 @@ public class Controller {
         OutputView.printTotalDiscountAmount(discountPromotions.getTotalBenefitAmount());
     }
 
-    private void generateBadge() {
+    private void generateBadge(final int benefitAmount) {
+        Badge badge = Badge.fromAmount(benefitAmount);
+        OutputView.printBadge(badge.getName());
     }
 
     private <T> T retryTemplate(final Supplier<T> action) {
