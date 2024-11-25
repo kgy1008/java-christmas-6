@@ -7,7 +7,8 @@ public enum ErrorMessage {
     NOT_FOUND_DAY("날짜에 해당하는 요일을 찾을 수 없습니다."),
 
     INVALID_ORDER("음료만 주문할 수 없습니다."),
-    INVALID_ORDER_COUNT("메뉴는 한 번에 최대 20개까지만 주문할 수 있습니다.")
+    INVALID_ORDER_COUNT("메뉴는 한 번에 최대 20개까지만 주문할 수 있습니다."),
+    INVALID_ORDER_MENU("메뉴에 존재하지 않는 음식입니다.")
     ;
 
     private static final String HEADER = "[ERROR] ";
