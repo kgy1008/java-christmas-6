@@ -7,7 +7,7 @@ public enum ErrorMessage {
     NOT_FOUND_DAY("날짜에 해당하는 요일을 찾을 수 없습니다.")
     ;
 
-    private static final String HEADER = "[ERROR ]";
+    private static final String HEADER = "[ERROR] ";
     private final String message;
 
     ErrorMessage(final String message) {
