@@ -32,4 +32,14 @@ public class Date {
     public int getDate() {
         return date;
     }
+
+    public boolean isWeekday() {
+        Day day = findDay();
+        return day != Day.FRIDAY && day != Day.SATURDAY;
+    }
+
+    public boolean isWeekend() {
+        Day day = findDay();
+        return day == Day.FRIDAY || day == Day.SATURDAY;
+    }
 }
