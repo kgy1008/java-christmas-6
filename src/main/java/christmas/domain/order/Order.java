@@ -29,6 +29,10 @@ public class Order {
         return menuType instanceof Beverage;
     }
 
+    public int getPrice() {
+        return menuType.getPrice(name);
+    }
+
     public String getName() {
         return name;
     }
