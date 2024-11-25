@@ -1,7 +1,8 @@
 package christmas.domain.discount;
 
 import christmas.domain.Date;
+import christmas.domain.order.Order;
 
 public interface DiscountPolicy {
-    int calculateDiscountAmount(Date date);
+    int calculateDiscountAmount(final Date date, final Order order);
 }

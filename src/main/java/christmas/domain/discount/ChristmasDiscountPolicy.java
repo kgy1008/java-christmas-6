@@ -1,6 +1,7 @@
 package christmas.domain.discount;
 
 import christmas.domain.Date;
+import christmas.domain.order.Order;
 
 public class ChristmasDiscountPolicy implements DiscountPolicy {
 
@@ -10,7 +11,7 @@ public class ChristmasDiscountPolicy implements DiscountPolicy {
     private static final int DISCOUNT_PRICE_UNIT = 100;
 
     @Override
-    public int calculateDiscountAmount(final Date date) {
+    public int calculateDiscountAmount(final Date date, final Order order) {
         if (isDiscountApplicable(date)) {
             int period = date.getDate() - START_DATE;
             return INIT_DISCOUNT_PRICE + (period * DISCOUNT_PRICE_UNIT);
