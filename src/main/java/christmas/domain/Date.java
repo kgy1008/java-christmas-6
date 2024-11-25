@@ -9,12 +9,10 @@ public class Date {
     private static final int CHRISTMAS_DATE = 25;
 
     private final int date;
-    private final boolean isSpecialDate;
 
     public Date(final int date) {
         validateRange(date);
         this.date = date;
-        this.isSpecialDate = setIsStared();
     }
 
     private void validateRange(final int day) {
@@ -23,11 +21,15 @@ public class Date {
         }
     }
 
-    private boolean setIsStared() {
+    public boolean isSpecialDate() {
         return findDay() == Day.SUNDAY || date == CHRISTMAS_DATE;
     }
 
     private Day findDay() {
         return Day.find(date);
+    }
+
+    public int getDate() {
+        return date;
     }
 }
