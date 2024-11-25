@@ -72,4 +72,9 @@ public class OutputView {
         System.out.printf("%,d", payment);
         System.out.println(NEW_LINE);
     }
+
+    public static void printBadge(final String badge) {
+        System.out.println("<12월 이벤트 배지>");
+        System.out.println(badge);
+    }
 }
