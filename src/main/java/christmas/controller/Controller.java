@@ -2,6 +2,7 @@ package christmas.controller;
 
 import christmas.domain.Calculator;
 import christmas.domain.Date;
+import christmas.domain.Gift;
 import christmas.domain.menu.Menus;
 import christmas.domain.order.Orders;
 import christmas.domain.order.utils.OrderParser;
@@ -45,12 +46,19 @@ public class Controller {
     }
 
     private void calculate(final Orders orders, final Date date) {
-        calculateTotalPrice(orders);
+        int totalPrice = calculateTotalPrice(orders);
+        displayGift(totalPrice);
     }
 
-    private void calculateTotalPrice(final Orders orders) {
+    private int calculateTotalPrice(final Orders orders) {
         int totalPrice = calculator.calculateTotalPrice(orders.getOrders());
         OutputView.printTotalPrice(totalPrice);
+        return totalPrice;
+    }
+
+    private void displayGift(final int totalPrice) {
+        Gift gift = calculator.checkGift(totalPrice);
+        OutputView.printGift(gift.getGift());
     }
 
     private <T> T retryTemplate(final Supplier<T> action) {

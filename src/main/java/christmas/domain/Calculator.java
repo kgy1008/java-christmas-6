@@ -2,12 +2,12 @@ package christmas.domain;
 
 import christmas.domain.discount.DiscountPolicy;
 import christmas.domain.order.Order;
-import christmas.domain.order.Orders;
 import java.util.List;
 import java.util.Set;
 
 public class Calculator {
 
+    private static final int MIN_PRICE_TO_GET_GIFT = 120_000;
     private final List<DiscountPolicy> discountPolicies;
 
     public Calculator(final List<DiscountPolicy> discountPolicies) {
@@ -18,5 +18,12 @@ public class Calculator {
         return orders.stream()
                 .mapToInt(order -> order.getCount() * order.getPrice())
                 .sum();
+    }
+
+    public Gift checkGift(final int totalPrice) {
+        if (totalPrice >= MIN_PRICE_TO_GET_GIFT) {
+            return Gift.CHAMPAGNE;
+        }
+        return Gift.NONE;
     }
 }
