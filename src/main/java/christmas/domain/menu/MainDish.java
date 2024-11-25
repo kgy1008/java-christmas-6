@@ -1,23 +1,18 @@
 package christmas.domain.menu;
 
-import java.util.Arrays;
+import java.util.Map;
 
-public enum MainDish {
-    STEAK("티본스테이크", 55_000),
-    BARBECUE_LIP("바비큐립", 54_000),
-    SEAFOOD_PASTA("해산물파스타", 35_000),
-    CHRISTMAS_PASTA("크리스마스파스타", 25_000);
+public class MainDish implements Menu {
+    private static final Map<String, Integer> MENU_ITEMS = Map.of(
+            "티본스테이크", 55000,
+            "바비큐립", 54000,
+            "해산물파스타", 35000,
+            "크리스마스파스타", 25000
+    );
 
-    private final String name;
-    private final int price;
-
-    MainDish(final String name, final int price) {
-        this.name = name;
-        this.price = price;
-    }
-
-    public static boolean isContain(final String name) {
-        return Arrays.stream(values())
-                .anyMatch(mainDish -> mainDish.name.equals(name));
+    @Override
+    public boolean isContain(final String name) {
+        return MENU_ITEMS.containsKey(name);
     }
 }
+
