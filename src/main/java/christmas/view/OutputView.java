@@ -50,7 +50,7 @@ public class OutputView {
     public static void printPromotion(final DiscountPromotions discountPromotions) {
         System.out.println("<혜택 내역>");
         if (discountPromotions.discountPromotions().isEmpty()) {
-            System.out.println("없음");
+            System.out.println("없음" + NEW_LINE);
             return;
         }
         discountPromotions.discountPromotions().forEach(discountPromotion -> {
@@ -63,13 +63,13 @@ public class OutputView {
 
     public static void printTotalDiscountAmount(final int totalDiscountAmount) {
         System.out.println("<총혜택 금액>");
-        System.out.printf("-" + "%,d원", totalDiscountAmount);
+        System.out.printf("%,d원", totalDiscountAmount * -1);
         System.out.println(NEW_LINE);
     }
 
     public static void printPayment(final int payment) {
         System.out.println("<할인 후 예상 결제 금액>");
-        System.out.printf("%,d", payment);
+        System.out.printf("%,d원", payment);
         System.out.println(NEW_LINE);
     }
 
