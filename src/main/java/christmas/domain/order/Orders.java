@@ -25,7 +25,7 @@ public class Orders {
 
     private void validateOrders(final Set<Order> orders) {
         boolean allOrdersAreBeverages = orders.stream()
-                .allMatch(order -> Beverage.isContain(order.getName()));
+                .allMatch(Order::isBeverage);
 
         if (allOrdersAreBeverages) {
             throw new IllegalArgumentException(INVALID_ORDER.getMessage());
