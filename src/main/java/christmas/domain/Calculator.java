@@ -69,5 +69,4 @@ public class Calculator {
             discountPromotions.add(new DiscountPromotion("증정 이벤트", gift.getPrice()));
         }
     }
-
 }
