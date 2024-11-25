@@ -3,7 +3,7 @@ package christmas.domain.menu;
 import java.util.Arrays;
 
 public enum Dessert {
-    CHOCOLATE_CAKE("초코 케이크", 15_000),
+    CHOCOLATE_CAKE("초코케이크", 15_000),
     ICE_CREAM("아이스크림", 5_000);
 
     private final String name;
