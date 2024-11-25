@@ -22,6 +22,10 @@ public class Order {
         return MainDish.isContain(name);
     }
 
+    public String getName() {
+        return name;
+    }
+
     public int getCount() {
         return count;
     }
