@@ -49,8 +49,8 @@ public class Controller {
     }
 
     private void calculateTotalPrice(final Orders orders) {
-        // int totalPrice = calculator.calculateTotalPrice(orders.getOrders());
-        // OutputView.printTotalPrice(totalPrice);
+        int totalPrice = calculator.calculateTotalPrice(orders.getOrders());
+        OutputView.printTotalPrice(totalPrice);
     }
 
     private <T> T retryTemplate(final Supplier<T> action) {

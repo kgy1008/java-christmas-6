@@ -12,4 +12,9 @@ public class Dessert implements Menu {
     public boolean isContain(final String name) {
         return MENU_ITEMS.containsKey(name);
     }
+
+    @Override
+    public int getPrice(final String name) {
+        return MENU_ITEMS.get(name);
+    }
 }
