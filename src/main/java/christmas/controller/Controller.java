@@ -1,6 +1,8 @@
 package christmas.controller;
 
+import christmas.domain.Calculator;
 import christmas.domain.Date;
+import christmas.domain.menu.Menus;
 import christmas.domain.order.Orders;
 import christmas.domain.order.utils.OrderParser;
 import christmas.dto.OrderMenus;
@@ -10,10 +12,19 @@ import java.util.function.Supplier;
 
 public class Controller {
 
+    private final Calculator calculator;
+    private final Menus menus;
+
+    public Controller(final Calculator calculator, final Menus menus) {
+        this.calculator = calculator;
+        this.menus = menus;
+    }
+
     public void run() {
         Date date = inputDate();
         Orders orders = inputOrder();
         displayOrder(date, orders);
+        calculate(orders, date);
     }
 
     private Date inputDate() {
@@ -24,13 +35,22 @@ public class Controller {
     private Orders inputOrder() {
         return retryTemplate(() -> {
             String orderedMenus = InputView.inputMenu();
-            return OrderParser.parse(orderedMenus);
+            return OrderParser.parse(orderedMenus, menus);
         });
     }
 
     private void displayOrder(final Date date, final Orders orders) {
         OutputView.printPreviewEventMessage(date.getDate());
         OutputView.printOrderedMenu(OrderMenus.of(orders.getOrders()));
+    }
+
+    private void calculate(final Orders orders, final Date date) {
+        calculateTotalPrice(orders);
+    }
+
+    private void calculateTotalPrice(final Orders orders) {
+        // int totalPrice = calculator.calculateTotalPrice(orders.getOrders());
+        // OutputView.printTotalPrice(totalPrice);
     }
 
     private <T> T retryTemplate(final Supplier<T> action) {
