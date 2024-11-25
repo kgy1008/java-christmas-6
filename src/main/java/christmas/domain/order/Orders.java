@@ -4,6 +4,7 @@ import static christmas.common.ErrorMessage.INVALID_ORDER;
 import static christmas.common.ErrorMessage.INVALID_ORDER_COUNT;
 
 import christmas.domain.menu.Beverage;
+import java.util.Collections;
 import java.util.Set;
 
 public class Orders {
@@ -39,5 +40,9 @@ public class Orders {
         if (totalCount > MAX_ORDER_COUNT) {
             throw new IllegalArgumentException(INVALID_ORDER_COUNT.getMessage());
         }
+    }
+
+    public Set<Order> getOrders() {
+        return Collections.unmodifiableSet(orders);
     }
 }
