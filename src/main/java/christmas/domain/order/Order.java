@@ -1,6 +1,7 @@
 package christmas.domain.order;
 
 import christmas.domain.menu.Dessert;
+import christmas.domain.menu.MainDish;
 
 public class Order {
 
@@ -14,6 +15,11 @@ public class Order {
 
     public boolean isDessert() {
         return Dessert.isContain(name);
+    }
+
+
+    public boolean isMainDish() {
+        return MainDish.isContain(name);
     }
 
     public int getCount() {
