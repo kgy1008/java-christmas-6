@@ -1,7 +1,10 @@
 package christmas.domain.order.utils;
 
 import static christmas.common.ErrorMessage.INVALID_INPUT_TYPE;
+import static christmas.common.ErrorMessage.INVALID_ORDER_MENU;
 
+import christmas.domain.menu.Menu;
+import christmas.domain.menu.Menus;
 import christmas.domain.order.Order;
 import christmas.domain.order.Orders;
 import java.util.Arrays;
@@ -13,7 +16,7 @@ public class OrderParser {
     private static final String DELIMITER = ",";
     private static final String SEPARATOR = "-";
 
-    public static Orders parse(final String orderMenus) {
+    public static Orders parse(final String orderMenus, final Menus menus) {
         final String[] menuDetail = orderMenus.split(DELIMITER);
 
         Set<Order> orders = Arrays.stream(menuDetail)
@@ -21,7 +24,8 @@ public class OrderParser {
                     String[] item = menu.split(SEPARATOR);
                     String name = item[0];
                     int price = convertToInt(item[1]);
-                    return new Order(name, price);
+                    Menu menuType = setMenuType(menus, name);
+                    return new Order(name, price, menuType);
                 })
                 .collect(Collectors.toUnmodifiableSet());
 
@@ -34,5 +38,12 @@ public class OrderParser {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(INVALID_INPUT_TYPE.getMessage());
         }
+    }
+
+    private static Menu setMenuType(final Menus menus, final String name) {
+        return menus.getMenus().stream()
+                .filter(menu -> menu.isContain(name))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(INVALID_ORDER_MENU.getMessage()));
     }
 }
