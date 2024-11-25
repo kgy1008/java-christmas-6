@@ -5,6 +5,7 @@ import christmas.dto.OrderMenus;
 public class OutputView {
 
     private static final String NEW_LINE = System.lineSeparator();
+    private static final int DEFAULT_COUNT = 1;
 
     public static void printWelcomeMessage() {
         System.out.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
@@ -22,7 +23,7 @@ public class OutputView {
             int count = orderMenu.count();
             System.out.printf("%s %d개%s", name, count, NEW_LINE);
         });
-        System.out.println(NEW_LINE);
+        System.out.print(NEW_LINE);
     }
 
     public static void printErrorMessage(final String message) {
@@ -31,7 +32,17 @@ public class OutputView {
 
     public static void printTotalPrice(final int totalPrice) {
         System.out.println("<할인 전 총주문 금액>");
-        System.out.printf("%,d원",totalPrice);
+        System.out.printf("%,d원", totalPrice);
         System.out.println(NEW_LINE);
+    }
+
+    public static void printGift(final String gift) {
+        System.out.println("<증정 메뉴>");
+        if (gift.equals("샴페인")) {
+            System.out.printf("%s %d개", gift, DEFAULT_COUNT);
+            System.out.println(NEW_LINE);
+            return;
+        }
+        System.out.println(gift);
     }
 }
