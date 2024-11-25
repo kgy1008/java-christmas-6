@@ -23,8 +23,12 @@ public class AppConfig {
     }
 
     private Calculator calculator() {
-        List<DiscountPolicy> policies = List.of(new ChristmasDiscountPolicy(), new SpecialDiscountPolicy(),
-                new WeekdayDiscountPolicy(), new WeekendDiscountPolicy());
+        List<DiscountPolicy> policies = List.of(
+                new ChristmasDiscountPolicy(),
+                new WeekdayDiscountPolicy(),
+                new WeekendDiscountPolicy(),
+                new SpecialDiscountPolicy()
+        );
         return new Calculator(policies);
     }
 
