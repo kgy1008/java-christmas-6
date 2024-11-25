@@ -8,7 +8,6 @@ import christmas.dto.DiscountPromotions;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -36,7 +35,7 @@ public class Calculator {
     }
 
     public DiscountPromotions calculateDiscountAmount(final Orders orders, final Date date, final Gift gift,
-                                                                final int totalPrice) {
+                                                      final int totalPrice) {
         if (totalPrice < MIN_PRICE_TO_APPLY_EVENT) {
             return new DiscountPromotions(new HashSet<>());
         }
