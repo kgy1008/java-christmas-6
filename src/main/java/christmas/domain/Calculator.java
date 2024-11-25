@@ -2,6 +2,10 @@ package christmas.domain;
 
 import christmas.domain.discount.DiscountPolicy;
 import christmas.domain.order.Order;
+import christmas.domain.order.Orders;
+import christmas.dto.DiscountPromotion;
+import christmas.dto.DiscountPromotions;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -25,5 +29,22 @@ public class Calculator {
             return Gift.CHAMPAGNE;
         }
         return Gift.NONE;
+    }
+
+    public DiscountPromotions calculateDiscountAmount(final Orders orders, final Date date, final Gift gift) {
+        Set<DiscountPromotion> discount = new HashSet<>();
+        for (Order order : orders.getOrders()) {
+            for (DiscountPolicy discountPolicy : discountPolicies) {
+                int amount = discountPolicy.calculateDiscountAmount(date, order);
+                if (amount > 0) {
+                    DiscountPromotion discountPromotion = new DiscountPromotion(discountPolicy.getName(), amount);
+                    discount.add(discountPromotion);
+                }
+            }
+        }
+        if (gift == Gift.CHAMPAGNE) {
+            discount.add(new DiscountPromotion("증정 이벤트", gift.getPrice()));
+        }
+        return new DiscountPromotions(discount);
     }
 }

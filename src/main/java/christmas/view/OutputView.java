@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.dto.DiscountPromotions;
 import christmas.dto.OrderMenus;
 
 public class OutputView {
@@ -43,6 +44,26 @@ public class OutputView {
             System.out.println(NEW_LINE);
             return;
         }
-        System.out.println(gift);
+        System.out.println(gift + NEW_LINE);
+    }
+
+    public static void printPromotion(final DiscountPromotions discountPromotions) {
+        System.out.println("<혜택 내역>");
+        if (discountPromotions.discountPromotions().isEmpty()) {
+            System.out.println("없음");
+            return;
+        }
+        discountPromotions.discountPromotions().forEach(discountPromotion -> {
+            String name = discountPromotion.policyName();
+            int discountAmount = discountPromotion.discountAmount();
+            System.out.printf("%s: -%,d원%s", name, discountAmount, NEW_LINE);
+        });
+        System.out.print(NEW_LINE);
+    }
+
+    public static void printTotalDiscountAmount(final int totalDiscountAmount) {
+        System.out.println("<총혜택 금액>");
+        System.out.printf("-" + "%,d원", totalDiscountAmount);
+        System.out.print(NEW_LINE);
     }
 }
