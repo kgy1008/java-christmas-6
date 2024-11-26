@@ -63,7 +63,7 @@ public class Calculator {
                 .toList();
     }
 
-    private void addGiftPromotionIfApplicable(Set<DiscountPromotion> discountPromotions, final Gift gift) {
+    private void addGiftPromotionIfApplicable(final Set<DiscountPromotion> discountPromotions, final Gift gift) {
         if (gift == Gift.CHAMPAGNE) {
             discountPromotions.add(new DiscountPromotion("증정 이벤트", gift.getPrice()));
         }
