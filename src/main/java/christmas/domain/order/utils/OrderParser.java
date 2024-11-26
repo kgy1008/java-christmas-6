@@ -21,6 +21,7 @@ public class OrderParser {
 
         Set<Order> orders = Arrays.stream(menuDetail)
                 .map(menu -> {
+                    menu = menu.trim();
                     String[] item = menu.split(SEPARATOR);
                     String name = item[0];
                     int price = convertToInt(item[1]);
