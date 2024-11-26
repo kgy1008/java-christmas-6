@@ -1,6 +1,6 @@
 package christmas.domain.order.utils;
 
-import static christmas.common.ErrorMessage.INVALID_INPUT_TYPE;
+import static christmas.common.ErrorMessage.INVALID_ORDER_FORMAT;
 import static christmas.common.ErrorMessage.INVALID_ORDER_MENU;
 
 import christmas.domain.menu.Menu;
@@ -24,9 +24,9 @@ public class OrderParser {
                     menu = menu.trim();
                     String[] item = menu.split(SEPARATOR);
                     String name = item[0];
-                    int price = convertToInt(item[1]);
+                    int count = convertToInt(item[1]);
                     Menu menuType = setMenuType(menus, name);
-                    return new Order(name, price, menuType);
+                    return new Order(name, count, menuType);
                 })
                 .collect(Collectors.toUnmodifiableSet());
 
@@ -37,7 +37,7 @@ public class OrderParser {
         try {
             return Integer.parseInt(price);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(INVALID_INPUT_TYPE.getMessage());
+            throw new IllegalArgumentException(INVALID_ORDER_FORMAT.getMessage());
         }
     }
 
