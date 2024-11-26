@@ -3,7 +3,6 @@ package christmas.domain.order;
 import static christmas.common.ErrorMessage.INVALID_ORDER;
 import static christmas.common.ErrorMessage.INVALID_ORDER_COUNT;
 
-import christmas.domain.menu.Beverage;
 import java.util.Collections;
 import java.util.Set;
 
