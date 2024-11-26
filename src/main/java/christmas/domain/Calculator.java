@@ -34,14 +34,13 @@ public class Calculator {
         return Gift.NONE;
     }
 
-    public DiscountPromotions calculateDiscountAmount(final Orders orders, final Date date, final Gift gift,
-                                                      final int totalPrice) {
+    public DiscountPromotions calculateDiscountAmount(final Orders orders, final Date date, final int totalPrice) {
         if (totalPrice < MIN_PRICE_TO_APPLY_EVENT) {
             return new DiscountPromotions(new HashSet<>());
         }
 
         Set<DiscountPromotion> discountPromotions = calculateDiscountForOrders(orders, date);
-        addGiftPromotionIfApplicable(discountPromotions, gift);
+        addGiftPromotionIfApplicable(discountPromotions, checkGift(totalPrice));
         return new DiscountPromotions(discountPromotions);
     }
 

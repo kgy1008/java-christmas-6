@@ -27,9 +27,7 @@ public class Controller {
         Date date = inputDate();
         Orders orders = inputOrder();
         displayOrder(date, orders);
-        int totalPrice = calculateTotalPrice(orders);
-        OutputView.printTotalPrice(totalPrice);
-        int benefitAmount = calculateAndDisplay(orders, date, totalPrice);
+        int benefitAmount = calculateAndDisplay(orders, date);
         generateBadge(benefitAmount);
     }
 
@@ -50,9 +48,12 @@ public class Controller {
         OutputView.printOrderedMenu(OrderMenus.of(orders.getOrders()));
     }
 
-    private int calculateAndDisplay(final Orders orders, final Date date, final int totalPrice) {
-        Gift gift = displayGift(totalPrice);
-        DiscountPromotions discountPromotions = calculateDiscountAmount(orders, date, gift, totalPrice);
+    private int calculateAndDisplay(final Orders orders, final Date date) {
+        int totalPrice = calculateTotalPrice(orders);
+        OutputView.printTotalPrice(totalPrice);
+        displayGift(totalPrice);
+
+        DiscountPromotions discountPromotions = calculateDiscountAmount(orders, date, totalPrice);
         displayBenefit(discountPromotions);
         OutputView.printPayment(totalPrice - discountPromotions.getTotalDiscountAmount());
         return discountPromotions.getTotalBenefitAmount();
@@ -62,14 +63,13 @@ public class Controller {
         return calculator.calculateTotalPrice(orders.getOrders());
     }
 
-    private Gift displayGift(final int totalPrice) {
+    private void displayGift(final int totalPrice) {
         Gift gift = calculator.checkGift(totalPrice);
         OutputView.printGift(gift.getGift());
-        return gift;
     }
 
-    private DiscountPromotions calculateDiscountAmount(final Orders orders, final Date date, final Gift gift, final int totalPrice) {
-        return calculator.calculateDiscountAmount(orders, date, gift, totalPrice);
+    private DiscountPromotions calculateDiscountAmount(final Orders orders, final Date date, final int totalPrice) {
+        return calculator.calculateDiscountAmount(orders, date, totalPrice);
     }
 
     private void displayBenefit(final DiscountPromotions discountPromotions) {
